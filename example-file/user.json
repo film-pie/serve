@@ -1,0 +1,23 @@
+[
+    {
+        "uid": 1,
+        "status": 1,
+        "uname": "张三",
+        "pic": "/img/banner.png",
+        "info": "专业摸鱼"
+    },
+    {
+        "uid": 2,
+        "status": -1,
+        "uname": "蔡徐坤",
+        "pic": "/img/banner.png",
+        "info": "喜爱篮球"
+    },
+    {
+        "uid": 3,
+        "status": 1,
+        "uname": "罗翔",
+        "pic": "/img/banner.png",
+        "info": "？？？？？"
+    }
+]
