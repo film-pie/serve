@@ -13,6 +13,10 @@ const key = createKey
 import express from 'express'
 const app = express()
 
+// 跨域
+import cors from 'cors'
+app.use(cors())
+
 // 解析post
 import bodyParser from 'body-parser'
 app.use(bodyParser.json())

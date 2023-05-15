@@ -34,16 +34,19 @@ router.get('/getVideoList', (req, res) => {
     })
   }
   // 处理演员数据
-  const data = videos.map((e) => {
-    return {
-      ...e,
-      user: e.user.map((user) => {
-        return users.find((e) => {
-          return e.uid == user.uid
+  const data = videos
+    .map((e) => {
+      return {
+        ...e,
+        user: e.user.map((user) => {
+          return users.find((e) => {
+            return e.uid == user.uid
+          })
         })
-      })
-    }
-  })
+      }
+      // 过滤非正常状态
+    })
+    .filter((i: any) => i.status === 1)
 
   res.send({
     status: 200,
@@ -55,7 +58,7 @@ router.get('/getVideoList', (req, res) => {
 // 读取演员列表接口
 router.get('/getUserList', (req, res) => {
   // 读取视频列表
-  const data = getUserListData()
+  const data = getUserListData().filter((i: any) => i.status === 1)
 
   if (!data) {
     return res.send({
