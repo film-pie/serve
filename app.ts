@@ -13,6 +13,7 @@ const key = createKey
 import express from 'express'
 const app = express()
 
+// 跨域
 import cors from 'cors'
 app.use(cors())
 
