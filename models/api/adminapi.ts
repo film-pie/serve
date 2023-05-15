@@ -8,7 +8,7 @@ import { addUserList, addVideoList, editUserList, editVideoList, delUser, delVid
 router.post('/getVideoList', (req, res) => {
     // 读取视频列表
     const data: any = getVideoListData()
-
+    const newdata = data.filter((i: any) => i.status === 1)
     if (!data) {
         return res.send({
             status: 500,
@@ -18,7 +18,7 @@ router.post('/getVideoList', (req, res) => {
     return res.send({
         status: 200,
         msg: '获取视频列表成功',
-        data
+        data: newdata
     })
 })
 
@@ -26,7 +26,7 @@ router.post('/getVideoList', (req, res) => {
 router.post('/getUserList', (req, res) => {
     // 读取视频列表
     const data: any = getUserListData()
-
+    const newdata = data.filter((i: any) => i.status === 1)
     if (!data) {
         return res.send({
             status: 500,
@@ -36,7 +36,7 @@ router.post('/getUserList', (req, res) => {
     return res.send({
         status: 200,
         msg: '获取演员列表成功',
-        data
+        data: newdata
     })
 })
 

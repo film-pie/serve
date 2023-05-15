@@ -25,7 +25,7 @@ router.get('/checkPwd', (req, res) => {
 router.get('/getVideoList', (req, res) => {
     // 读取视频列表
     const data: any = getVideoListData()
-
+    const newdata = data.filter((i: any) => i.status === 1)
     if (!data) {
         return res.send({
             status: 500,
@@ -35,7 +35,7 @@ router.get('/getVideoList', (req, res) => {
     return res.send({
         status: 200,
         msg: '获取视频列表成功',
-        data
+        data: newdata
     })
 })
 
@@ -43,7 +43,7 @@ router.get('/getVideoList', (req, res) => {
 router.get('/getUserList', (req, res) => {
     // 读取视频列表
     const data: any = getUserListData()
-
+    const newdata = data.filter((i: any) => i.status === 1)
     if (!data) {
         return res.send({
             status: 500,
@@ -53,7 +53,7 @@ router.get('/getUserList', (req, res) => {
     return res.send({
         status: 200,
         msg: '获取演员列表成功',
-        data
+        data: newdata
     })
 })
 

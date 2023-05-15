@@ -4,8 +4,8 @@ const readFile = (file: string) => {
     if (file == 'video') {
         try {
             const data = fs.readFileSync('./data/video.json', 'utf-8')
-            const fileitem = JSON.parse(data)
-            return fileitem
+            const oldlist = JSON.parse(data)
+            return oldlist
         } catch (err) {
             console.log('读取视频列表出错');
             console.log(err);
@@ -16,8 +16,8 @@ const readFile = (file: string) => {
     if (file == 'user') {
         try {
             const data = fs.readFileSync('./data/user.json', 'utf-8')
-            const fileitem = JSON.parse(data)
-            return fileitem
+            const oldlist = JSON.parse(data)
+            return oldlist
         } catch (err) {
             console.log('读取演员列表出错');
             console.log(err);
