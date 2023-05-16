@@ -40,6 +40,9 @@ app.use('/api/admin', checkPwd, adminApi)
 
 import './models/controllers/processData'
 
+// 共享public目录
+app.use(express.static('./public'))
+
 // 开启监听
 app.listen(port, () => {
     console.log(`服务器开始监听http://localhost:${port}`);
