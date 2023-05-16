@@ -57,7 +57,7 @@ router.get('/getUserList', (req, res) => {
     })
 })
 
-// 获取指定数据
+// 获取视频详细数据
 import { processUserData, processVideoData } from './../controllers/processData'
 router.get('/getVideo', (req, res) => {
     if (!req.query.uid || !req.query) {
@@ -79,5 +79,37 @@ router.get('/getVideo', (req, res) => {
         data
     })
 })
+
+import { addVisit, addDownload } from './../writeData'
+// 增加播放量接口
+router.get('/addVisit', (req, res) => {
+    if (!req.query || !req.query.uid) {
+        return res.send({
+            status: 400,
+            msg: '请求错误'
+        })
+    }
+    addVisit(req.query.uid as any)
+    return res.send({
+        status: 200,
+        msg: '请求成功'
+    })
+})
+
+// 增加下载量接口
+router.get('/addDownload', (req, res) => {
+    if (!req.query || !req.query.uid) {
+        return res.send({
+            status: 400,
+            msg: '请求错误'
+        })
+    }
+    addDownload(req.query.uid as any)
+    return res.send({
+        status: 200,
+        msg: '请求成功'
+    })
+})
+
 
 export default router

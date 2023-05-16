@@ -158,3 +158,33 @@ export const delVideo = (uid: number) => {
         console.log(error);
     }
 }
+
+export const addVisit = (uid: number) => {
+    const data = getVideoListData()
+    if (!data) return console.log('获取视频信息失败！无法写入观看数据！！')
+    const thisdata = data.map((e: any) => {
+        if (e.uid == uid) {
+            e.visit++
+        }
+        return e
+    })
+    const newVideolist = JSON.stringify(thisdata)
+    fs.writeFileSync('./data/video.json', newVideolist, 'utf-8')
+    console.log('用户正在浏览视频，uid：' + uid);
+
+}
+
+export const addDownload = (uid: number) => {
+    const data = getVideoListData()
+    if (!data) return console.log('获取视频信息失败！无法写入下载数据！！')
+    const thisdata = data.map((e: any) => {
+        if (e.uid == uid) {
+            e.download++
+        }
+        return e
+    })
+    const newVideolist = JSON.stringify(thisdata)
+    fs.writeFileSync('./data/video.json', newVideolist, 'utf-8')
+    console.log('用户正在现在视频，uid：' + uid);
+
+}
