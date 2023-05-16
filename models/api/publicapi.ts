@@ -57,5 +57,27 @@ router.get('/getUserList', (req, res) => {
     })
 })
 
+// 获取指定数据
+import { processUserData, processVideoData } from './../controllers/processData'
+router.get('/getVideo', (req, res) => {
+    if (!req.query.uid || !req.query) {
+        return res.send({
+            status: 400,
+            msg: '需要uid'
+        })
+    }
+    const data = processVideoData(req.query.uid as any)
+    if (!data) {
+        return res.send({
+            status: 500,
+            msg: '获取视频数据失败！'
+        })
+    }
+    return res.send({
+        status: 200,
+        msg: '获取视频数据成功',
+        data
+    })
+})
 
 export default router

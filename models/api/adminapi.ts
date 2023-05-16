@@ -3,6 +3,7 @@ const router = express.Router()
 
 import { getUserListData, getVideoListData } from './../getData'
 import { addUserList, addVideoList, editUserList, editVideoList, delUser, delVideo } from './../writeData'
+import { processUserData, processVideoData } from './../controllers/processData'
 
 // 读取视频列表接口
 router.post('/getVideoList', (req, res) => {
@@ -19,6 +20,28 @@ router.post('/getVideoList', (req, res) => {
         status: 200,
         msg: '获取视频列表成功',
         data: newdata
+    })
+})
+
+// 获取视频详细数据
+router.post('/getVideo', (req, res) => {
+    if (!req.body.uid || !req.body) {
+        return res.send({
+            status: 400,
+            msg: '需要uid'
+        })
+    }
+    const data = processVideoData(req.body.uid as any)
+    if (!data) {
+        return res.send({
+            status: 500,
+            msg: '获取视频数据失败！'
+        })
+    }
+    return res.send({
+        status: 200,
+        msg: '获取视频数据成功',
+        data
     })
 })
 

@@ -13,9 +13,10 @@ export const addVideoList = (data: any, before = false) => {
         data.download = 0
         data.score = 0
         if (before) {
+            if (!oldvideolist) return console.log('写入数据失败！')
             oldvideolist.unshift(data)
         } else {
-            oldvideolist.push(data)
+            if (!oldvideolist) return console.log('写入数据失败！')
         }
         const newVideolist = JSON.stringify(oldvideolist)
         fs.writeFileSync('./data/video.json', newVideolist, 'utf-8')
@@ -30,6 +31,10 @@ export const addVideoList = (data: any, before = false) => {
 export const addUserList = (data: any) => {
     try {
         const olduserlist = getUserListData()
+        if (!olduserlist) {
+            return console.log('写入数据失败！');
+
+        }
         data.uid = nextUserUid()
         data.status = 1
         olduserlist.push(data)
@@ -46,6 +51,10 @@ export const addUserList = (data: any) => {
 export const editUserList = (data: any, uid: Number) => {
     try {
         const olduserlist = getUserListData()
+        if (!olduserlist) {
+            return console.log('写入数据失败！');
+
+        }
         // const edititem = olduserlist.find((e: any) => e.uid == uid)
         let res = false
         olduserlist.forEach((e: any) => {
@@ -71,6 +80,10 @@ export const editUserList = (data: any, uid: Number) => {
 export const editVideoList = (data: any, uid: Number) => {
     try {
         const oldvideolist = getVideoListData()
+        if (!oldvideolist) {
+            return console.log('写入数据失败！');
+
+        }
         let res = false
         oldvideolist.forEach((e: any) => {
             if (e.uid == uid) {
@@ -97,6 +110,10 @@ export const editVideoList = (data: any, uid: Number) => {
 export const delUser = (uid: number) => {
     try {
         const olduserlist = getUserListData()
+        if (!olduserlist) {
+            return console.log('写入数据失败！');
+
+        }
         let status = false
         olduserlist.forEach((e: any) => {
             if (e.uid == uid) {
@@ -119,6 +136,10 @@ export const delUser = (uid: number) => {
 export const delVideo = (uid: number) => {
     try {
         const oldVideolist = getVideoListData()
+        if (!oldVideolist) {
+            return console.log('写入数据失败！');
+
+        }
         let status = false
         oldVideolist.forEach((e: any) => {
             if (e.uid == uid) {

@@ -1,37 +1,58 @@
 import fs from 'fs'
 
-const readFile = (file: string) => {
-    if (file == 'video') {
-        try {
-            const data = fs.readFileSync('./data/video.json', 'utf-8')
-            const oldlist = JSON.parse(data)
-            return oldlist
-        } catch (err) {
-            console.log('读取视频列表出错');
-            console.log(err);
-            return null
-        }
-
-    }
-    if (file == 'user') {
-        try {
-            const data = fs.readFileSync('./data/user.json', 'utf-8')
-            const oldlist = JSON.parse(data)
-            return oldlist
-        } catch (err) {
-            console.log('读取演员列表出错');
-            console.log(err);
-            return null
-        }
-
-    }
-    console.log('出现了内部错误，无法解析readFile参数')
+// 定义数据格式
+interface Video {
+    uid: number
+    status: number
+    title: string
+    info: string
+    visit: number
+    download: number
+    score: number
+    src: string
+    img: string
+    user:
+    {
+        uid: number
+        works: string
+    }[]
+    | User[]
 }
 
-export const getVideoListData = () => {
+interface User {
+    uid: number
+    status: number
+    uname: string
+    pic: string
+    info: string
+}
+
+const readFile = (file: 'video' | 'user') => {
+    let path
+    if (file == 'video') {
+        path = './data/video.json'
+    } else {
+        path = './data/user.json'
+    }
+    try {
+        const data = fs.readFileSync(path, 'utf-8')
+        if (!data) {
+            console.log('读取文件列表出错');
+            return null
+        }
+        const oldlist = JSON.parse(data)
+        return oldlist
+    } catch (err) {
+        console.log('读取文件列表出错');
+        console.log(err);
+        return null
+    }
+}
+
+export const getVideoListData = (): Video[] | null => {
     return readFile('video')
 }
 
-export const getUserListData = () => {
+export const getUserListData = (): User[] | null => {
     return readFile('user')
 }

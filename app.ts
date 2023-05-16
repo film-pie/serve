@@ -38,6 +38,8 @@ app.use('/api', publicApi)
 import adminApi from './models/api/adminapi'
 app.use('/api/admin', checkPwd, adminApi)
 
+import './models/controllers/processData'
+
 // 开启监听
 app.listen(port, () => {
     console.log(`服务器开始监听http://localhost:${port}`);
