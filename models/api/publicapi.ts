@@ -80,7 +80,7 @@ router.get('/getVideo', (req, res) => {
     })
 })
 
-import { addVisit, addDownload } from './../writeData'
+import { addVisit, addDownload, videoScore } from './../writeData'
 // 增加播放量接口
 router.get('/addVisit', (req, res) => {
     if (!req.query || !req.query.uid) {
@@ -108,6 +108,32 @@ router.get('/addDownload', (req, res) => {
     return res.send({
         status: 200,
         msg: '请求成功'
+    })
+})
+
+// 评分接口
+router.get('/addScore', (req, res) => {
+    if (!req.query || !req.query.uid || !req.query.score) {
+        return res.send({
+            status: 400,
+            msg: '需提供参数'
+        })
+    }
+    if ((req.query.score as any) > 5 || (req.query.score as any) < 1) {
+        return res.send({
+            status: 403,
+            msg: '你干嘛~哈哈哎哟！'
+        })
+    }
+    if (!videoScore((req.query.uid as any), (req.query.score as any))) {
+        return res.send({
+            status: 500,
+            msg: '评分提交失败'
+        })
+    }
+    return res.send({
+        status: 200,
+        msg: '评分提交成功'
     })
 })
 

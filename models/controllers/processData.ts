@@ -41,8 +41,17 @@ export const processVideoData = (videouid: number) => {
         e.info = userInfo.info
         return e
     })
+    // 处理评分数据，将评分渲染为平均值
+    // 评分总和 videoInfo.score
+    let sum = 0
+    videoInfo.score.forEach((e: any) => {
+        sum += e
+    })
+    // 平均值
+    const score = sum / videoInfo.score.length
     // 使用新的数组覆盖旧的数组
     videoInfo.user = newuserdata
+    videoInfo.score = score
     return videoInfo
 }
 
@@ -55,5 +64,3 @@ export const processUserData = () => {
     const nodeldata = olddata.filter((i: any) => i.status === 1)
     return nodeldata
 }
-
-

@@ -188,3 +188,28 @@ export const addDownload = (uid: number) => {
     console.log('用户正在现在视频，uid：' + uid);
 
 }
+
+export const videoScore = (uid: unknown, score: 1 | 2 | 3 | 4 | 5) => {
+    const data = getVideoListData()
+    if (!data) return console.log('获取视频信息失败！无法写入下载数据！！')
+    try {
+        const data2 = data.map((e: any) => {
+            if (e.uid == uid) {
+                e.score.push(Number(score))
+            }
+            return e
+        })
+        const newVideolist = JSON.stringify(data2)
+        fs.writeFileSync('./data/video.json', newVideolist, 'utf-8')
+        console.log('用户正在现在视频，uid：' + uid);
+        console.log(`用户对uid：${uid}的视频进行了评分！评分：${score}`)
+        return true
+    } catch (error) {
+        console.log('写入数据失败！')
+        console.log(error)
+        return false
+    }
+
+
+
+}
