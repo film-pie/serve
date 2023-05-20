@@ -60,9 +60,12 @@ export const getUserListData = (): User[] | null => {
 export const getUserInfo = (uid: number) => {
     const oldlist = getUserListData()
     if (!oldlist) {
-        return console.log('写入数据失败！');
+        return console.log('读取数据失败！');
     }
     const data = oldlist.find((i: any) => i.uid == uid)
+    if((data as User).status != 1) {
+        return false
+    }
     return data
 }
 
