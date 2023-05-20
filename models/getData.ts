@@ -56,3 +56,13 @@ export const getVideoListData = (): Video[] | null => {
 export const getUserListData = (): User[] | null => {
     return readFile('user')
 }
+
+export const getUserInfo = (uid: number) => {
+    const oldlist = getUserListData()
+    if (!oldlist) {
+        return console.log('写入数据失败！');
+    }
+    const data = oldlist.find((i: any) => i.uid == uid)
+    return data
+}
+

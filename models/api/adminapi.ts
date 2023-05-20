@@ -1,7 +1,7 @@
 import express from 'express'
 const router = express.Router()
 
-import { getUserListData, getVideoListData } from './../getData'
+import { getUserListData, getVideoListData,getUserInfo } from './../getData'
 import { addUserList, addVideoList, editUserList, editVideoList, delUser, delVideo } from './../writeData'
 import { processUserData, processVideoData } from './../controllers/processData'
 
@@ -195,6 +195,36 @@ router.post('/delUser', (req, res) => {
         status: 500,
         mgs: '删除演员失败'
     })
+})
+
+// 查询演员数据
+router.post('/getUser', (req, res) => {
+    try {
+        if (!req.body || !req.body.uid) {
+            return res.send({
+                status: 400,
+                msg: '未提供参数'
+            })
+        }
+        const data = getUserInfo(req.body.uid)
+        if (!data) {
+            return res.send({
+                status: 500,
+                msg: '服务器出错'
+            })
+        }
+        return res.send({
+            status: 200,
+            msg: '获取演员数据成功',
+            data
+        })
+    } catch (error) {
+        return res.send({
+            status: 500,
+            msg: '服务器出错'
+        })
+    }
+    
 })
 
 
